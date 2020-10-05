@@ -3,6 +3,7 @@ const client = new Discord.Client(); //Create the bot
 
 const config = require('./config.json');
 const command = require('./command.js');
+const firstMessage = require('./first-message.js');
 
 client.once('ready', () => { //Tell the bot is online
     console.log('The client is ready!');
@@ -35,6 +36,8 @@ client.once('ready', () => { //Tell the bot is online
             },
         })
     })
+
+    firstMessage(client, '762610140184313896', 'hello world!!!', ['🔥', '❤️'])
 })
 
 client.login(config.token);
