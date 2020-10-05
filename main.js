@@ -4,6 +4,8 @@ const client = new Discord.Client(); //Create the bot
 
 const prefix = '!'; //Prefix the bot is listening to
 
+const config = require('./config.json');
+
 const fs = require('fs'); //Require fs
 
 client.commands = new Discord.Collection(); //Create discord collection
