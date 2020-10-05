@@ -4,6 +4,7 @@ const client = new Discord.Client(); //Create the bot
 const config = require('./config.json');
 const command = require('./command.js');
 const firstMessage = require('./first-message.js');
+const privateMessage = require('./private-message.js');
 
 client.once('ready', () => { //Tell the bot is online
     console.log('The client is ready!');
@@ -37,7 +38,51 @@ client.once('ready', () => { //Tell the bot is online
         })
     })
 
-    firstMessage(client, '762610140184313896', 'hello world!!!', ['🔥', '❤️'])
+    command(client, 'embed', message => {
+        const embed = new Discord.MessageEmbed()
+        .setTitle('Hoertje Gerben')
+        .addFields({
+            name: 'Gerben:',
+            value: 'Geruchten gaan dat gerben ff zijn gore hoere bek moet houden',
+        })
+        .setFooter('Copyright voor Wimmmm')
+
+        message.channel.send(embed)
+    })
+
+    command(client, 'serverinfo', (message) => {
+        const { guild } = message
+
+        const { name, regions, memberCount, owner, afkTimeout } = guild
+        const icon = guild.iconURL()
+
+        const embed = new Discord.MessageEmbed()
+        .setTitle(`Server info for "${name}"`)
+        .setThumbnail(icon)
+        .addFields(
+            {
+                name: 'Region',
+                value: regions,
+            },
+            {
+                name: 'Members',
+                value: memberCount,
+            },
+            {
+                name: 'Owner',
+                value: owner.user.tag,
+            },
+            {
+                name: 'AFK Timeout',
+                value: afkTimeout / 60,
+            }
+        )
+        message.channel.send(embed)
+    })
+
+    //firstMessage(client, '762610140184313896', 'hello world!!!', ['🔥', '❤️'])
+
+    privateMessage(client, 'ping', 'pong')
 })
 
 client.login(config.token);
