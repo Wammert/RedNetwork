@@ -16,7 +16,7 @@ for (const file of commandFiles){
 }
 
 client.once('ready', () => { //Tell the bot is online
-    console.log('RedNetwork bot is online!');
+    console.log('The client is ready!');
 })
 
 client.on('message', message =>{//When a message is send
@@ -32,4 +32,4 @@ client.on('message', message =>{//When a message is send
     }
 });
 
-client.login('NzYyMzg5NjE3NjU5NzQwMjc3.X3ocqQ.44Op6FKAVUfLGRS-lNod05yWdxU'); //Log the bot in
+client.login(config.token);
