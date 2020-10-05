@@ -1,35 +1,43 @@
 const Discord = require('discord.js'); //Load discord.js
-
 const client = new Discord.Client(); //Create the bot
 
-const prefix = '!'; //Prefix the bot is listening to
-
-const fs = require('fs'); //Require fs
-
-client.commands = new Discord.Collection(); //Create discord collection
-
-const commandFiles = fs.readdirSync('./commands/').filter(file => file.endsWith('.js'));
-for (const file of commandFiles){
-    const command = require(`./commands/${file}`);
-
-    client.commands.set(command.name, command);
-}
+const config = require('./config.json');
+const command = require('./command.js');
+const firstMessage = require('./first-message.js');
 
 client.once('ready', () => { //Tell the bot is online
     console.log('The client is ready!');
+
+    command(client, 'ping', message => {
+        message.channel.send('Pong!');
+    })
+
+    command(client, 'servers', message => {
+        client.guilds.cache.forEach((guild) => {
+            message.channel.send(`${guild.name} has a total of ${guild.memberCount} members!`)
+        })
+    })
+
+    command(client, ['cc', 'clearchannel'], message => {
+        if (message.member.hasPermission('ADMINISTRATOR')) {
+            message.channel.messages.fetch().then((results) => {
+                message.channel.bulkDelete(results)
+            })
+        }
+    })
+
+    command(client, 'status', message => {
+        const content = message.content.replace('!status ', '')
+
+        client.user.setPresence({
+            activity: {
+                name: content,
+                type: 0,
+            },
+        })
+    })
+
+    firstMessage(client, '762610140184313896', 'hello world!!!', ['🔥', '❤️'])
 })
-
-client.on('message', message =>{//When a message is send
-    if(!message.content.startsWith(prefix) || message.author.bot) return; //Check if message is with prefix or message is from the bot
-
-    const args = message.content.slice(prefix.length).split(/ +/); //Make it possible to do multiple commands (So with a space)
-    const command = args.shift().toLowerCase(); //Make the command lowercase
-
-    if (command === 'ping'){ //Ping command
-        client.commands.get('ping').execute(message, args);
-    } else if (command === 'announce'){ //Announce command
-        client.commands.get('announce').execute(message, args);
-    }
-});
 
 client.login(config.token);
