@@ -1,0 +1,14 @@
+{
+  "name": "rednetwork",
+  "version": "1.0.0",
+  "description": "RedNetwork bot",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Wim ter Harmsel",
+  "license": "ISC",
+  "dependencies": {
+    "discord.js": "^12.3.1"
+  }
+}
