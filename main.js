@@ -17,6 +17,15 @@ const client = new Commando.CommandoClient({
   commandPrefix: config.prefix,
 });
 
+client.setProvider(
+  MongoClient.connect(config.mongoPath)
+  .then(client => {
+    return new MongoDBProvider(client, 'RedNetwork')
+  }).catch(err => {
+    console.error(err)
+  })
+)
+
 client.once("ready", () => {
   //When the bot is online
   console.log("The client is ready!");

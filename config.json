@@ -1,3 +1,4 @@
 {
-  "prefix": "!"
+  "prefix": "!",
+  "mongoPath": "mongodb+srv://WimTH:Wthterharmsel1@rednetwork.kdiya.mongodb.net/<dbname>?retryWrites=true&w=majority"
 }
