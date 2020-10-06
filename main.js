@@ -1,6 +1,7 @@
 // const Discord = require("discord.js"); //Load discord.js
 // const client = new Discord.Client(); //Create the bot
 
+const path = require("path");
 const Commando = require("discord.js-commando");
 
 const config = require("./config.json");
@@ -22,7 +23,13 @@ client.once("ready", () => {
   //   message.channel.send("Pong!");
   // });
 
-  client.registry.registerDefaults();
+  client.registry
+    .registerGroups([
+      ["misc", "misc commands"],
+      ["moderation", "moderation commands"],
+    ])
+    .registerDefaults()
+    .registerCommandsIn(path.join(__dirname, "cmds"));
 
   // command(client, "servers", (message) => {
   //   client.guilds.cache.forEach((guild) => {
