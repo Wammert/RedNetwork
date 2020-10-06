@@ -1,6 +1,8 @@
 // const Discord = require("discord.js"); //Load discord.js
 // const client = new Discord.Client(); //Create the bot
 
+const { MongoClient } = require("mongodb");
+const MongoDBProvider = require("commando-provider-mongo");
 const path = require("path");
 const Commando = require("discord.js-commando");
 

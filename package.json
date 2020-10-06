@@ -9,8 +9,10 @@
   "author": "Wim ter Harmsel",
   "license": "ISC",
   "dependencies": {
+    "commando-provider-mongo": "^1.1.1",
     "discord.js": "^12.3.1",
     "discord.js-commando": "git+https://github.com/discordjs/commando.git",
+    "mongodb": "^3.6.2",
     "repository": "^0.2.0"
   }
 }
