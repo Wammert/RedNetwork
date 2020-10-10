@@ -79,8 +79,7 @@ module.exports = class KickCommand extends Commando.Command {
               message.embed(kickedEmbed)
               member.kick({reason}).catch(err => {
                 if (err) {
-                  //return message.reply("Something went wrong");
-                  console.log(err);
+                  return message.reply("Something went wrong");
                 }
               })
           } else if (emoji === "❌") {

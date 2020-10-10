@@ -79,8 +79,7 @@ module.exports = class BanCommand extends Commando.Command {
               message.embed(bannedEmbed)
               member.ban({reason}).catch(err => {
                 if (err) {
-                  //return message.reply("Something went wrong");
-                  console.log(err);
+                  return message.reply("Something went wrong");
                 }
               })
           } else if (emoji === "❌") {
