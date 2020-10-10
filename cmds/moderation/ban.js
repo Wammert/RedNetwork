@@ -1,15 +1,15 @@
 const Commando = require("discord.js-commando");
 const Embed = require('discord.js');
 
-module.exports = class KickCommand extends Commando.Command {
+module.exports = class BanCommand extends Commando.Command {
   constructor(client) {
     super(client, {
-      name: "kick",
+      name: "ban",
       group: "moderation",
-      memberName: "kick",
-      description: "Kicks a member from the discord server",
-      clientPermissions: ["KICK_MEMBERS"],
-      userPermissions: ["KICK_MEMBERS"],
+      memberName: "ban",
+      description: "Bans a member from the discord server",
+      clientPermissions: ["BAN_MEMBERS"],
+      userPermissions: ["BAN_MEMBERS"],
     });
   }
 
@@ -21,7 +21,7 @@ module.exports = class KickCommand extends Commando.Command {
       const specifyEmbed = new Embed.MessageEmbed()
       .addFields({
         name: "Error",
-        value: "Please specify someone to kick",
+        value: "Please specify someone to ban",
       })
       .setColor("#ed1109")
       message.embed(specifyEmbed)
@@ -32,7 +32,7 @@ module.exports = class KickCommand extends Commando.Command {
         const reasonEmbed = new Embed.MessageEmbed()
         .addFields({
           name: "Error",
-          value: "Please give us a reason to kick the user",
+          value: "Please give us a reason to ban the user",
         })
         .setColor("#ed1109")
         message.embed(reasonEmbed)
@@ -48,13 +48,13 @@ module.exports = class KickCommand extends Commando.Command {
       const embedPrompt = new Embed.MessageEmbed()
       .addFields({
         name: "Are you sure?",
-        value: `Are you sure you want to kick ${target.username}?`,
+        value: `Are you sure you want to ban ${target.username}?`,
       })
       .setColor("ORANGE")
 
-      // Kicked embed
-      const kickedEmbed = new Embed.MessageEmbed()
-      .setTitle("User kicked")
+      // Banned embed
+      const bannedEmbed = new Embed.MessageEmbed()
+      .setTitle("User banned")
       .addFields(
         {
             name: "User",
@@ -76,8 +76,8 @@ module.exports = class KickCommand extends Commando.Command {
 
           if (emoji === "✅") {
               msg.delete();
-              message.embed(kickedEmbed)
-              member.kick({reason}).catch(err => {
+              message.embed(bannedEmbed)
+              member.ban({reason}).catch(err => {
                 if (err) {
                   //return message.reply("Something went wrong");
                   console.log(err);
@@ -86,12 +86,12 @@ module.exports = class KickCommand extends Commando.Command {
           } else if (emoji === "❌") {
             msg.delete()
 
-            // Cancel embed
+            // Banned embed
             const embed = new Embed.MessageEmbed()
             .addFields(
                 {
                     name: "Canceled",
-                    value: `Kicking ${target.username} has been canceled`,
+                    value: `Banning ${target.username} has been canceled`,
                 }
                 )
             .setColor("GREEN")
@@ -103,7 +103,7 @@ module.exports = class KickCommand extends Commando.Command {
       const embed = new Embed.MessageEmbed()
       .addFields({
         name: "No Permissions",
-        value: "I cannot kick that user!",
+        value: "I cannot ban that user!",
       })
       .setColor("#ed1109")
       message.embed(embed)

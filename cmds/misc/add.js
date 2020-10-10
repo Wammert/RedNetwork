@@ -1,4 +1,5 @@
 const Commando = require("discord.js-commando");
+const Embed = require('discord.js');
 
 module.exports = class AddCommand extends Commando.Command {
   constructor(client) {
@@ -17,7 +18,13 @@ module.exports = class AddCommand extends Commando.Command {
     for (const arg of args) {
       sum += parseInt(arg);
     }
-
-    message.reply(`The sum is ${sum}!`);
-  }
+    const embed = new Embed.MessageEmbed()
+    .setTitle("RedNetwork Calculator")
+    .addFields({
+      name: "Answer",
+      value: `The sum is ${sum}!`,
+    })
+    .setColor("#3be324")
+    message.embed(embed)
+    }
 };
